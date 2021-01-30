@@ -255,41 +255,122 @@ namespace NoteApp
             string text = list[1].Trim();
             this.load_note(text);
         }
+        private void Italic_btn_Click(object sender, EventArgs e)
+        {
+            if(!Text_note_rtb.SelectionFont.Italic)
+            {
+                Italic_btn.Highlight = true;
+                FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
+                float size = Text_note_rtb.SelectionFont.Size;
+                FontStyle style = Text_note_rtb.SelectionFont.Style;
+                style |= FontStyle.Italic;
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
+            }
+            else
+            {
+                Italic_btn.Highlight = false;
+                FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
+                float size = Text_note_rtb.SelectionFont.Size;
+
+                FontStyle style = FontStyle.Regular;
+
+                if (Text_note_rtb.SelectionFont.Strikeout)
+                    style |= FontStyle.Strikeout;
+                if (Text_note_rtb.SelectionFont.Bold)
+                    style |= FontStyle.Bold;
+                if (Text_note_rtb.SelectionFont.Underline)
+                    style |= FontStyle.Underline;
+
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
+            }
+        }
         private void Sub_btn_Click_1(object sender, EventArgs e)
         {
-            if(Text_note_rtb.SelectionFont.Style != FontStyle.Underline)
+            if (!Text_note_rtb.SelectionFont.Underline)
             {
                 Sub_btn.Highlight = true;
                 FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
                 float size = Text_note_rtb.SelectionFont.Size;
-                Text_note_rtb.SelectionFont = new Font(family, size, FontStyle.Underline);
+                FontStyle style = Text_note_rtb.SelectionFont.Style;
+                style |= FontStyle.Underline;
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
             }
             else
             {
                 Sub_btn.Highlight = false;
                 FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
                 float size = Text_note_rtb.SelectionFont.Size;
-                Text_note_rtb.SelectionFont = new Font(family, size, FontStyle.Regular);
+
+                FontStyle style = FontStyle.Regular;
+
+                if (Text_note_rtb.SelectionFont.Strikeout)
+                    style |= FontStyle.Strikeout;
+                if (Text_note_rtb.SelectionFont.Bold)
+                    style |= FontStyle.Bold;
+                if (Text_note_rtb.SelectionFont.Italic)
+                    style |= FontStyle.Italic;
+
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
+            }
+        }
+        private void Strikeout_btn_Click(object sender, EventArgs e)
+        {
+            if (!Text_note_rtb.SelectionFont.Strikeout)
+            {
+                Strikeout_btn.Highlight = true;
+                FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
+                float size = Text_note_rtb.SelectionFont.Size;
+                FontStyle style = Text_note_rtb.SelectionFont.Style;
+                style |= FontStyle.Strikeout;
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
+            }
+            else
+            {
+                Strikeout_btn.Highlight = false;
+                FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
+                float size = Text_note_rtb.SelectionFont.Size;
+
+                FontStyle style = FontStyle.Regular;
+
+                if (Text_note_rtb.SelectionFont.Bold)
+                    style |= FontStyle.Bold;
+                if (Text_note_rtb.SelectionFont.Underline)
+                    style |= FontStyle.Underline;
+                if (Text_note_rtb.SelectionFont.Italic)
+                    style |= FontStyle.Italic;
+
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
             }
         }
         private void Bold_btn_Click(object sender, EventArgs e)
         {
-            if (Text_note_rtb.SelectionFont.Style != FontStyle.Bold)
+            if (!Text_note_rtb.SelectionFont.Bold)
             {
                 Bold_btn.Highlight = true;
                 FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
                 float size = Text_note_rtb.SelectionFont.Size;
-                Text_note_rtb.SelectionFont = new Font(family, size, FontStyle.Bold);
+                FontStyle style = Text_note_rtb.SelectionFont.Style;
+                style |= FontStyle.Bold;
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
             }
             else
             {
                 Bold_btn.Highlight = false;
                 FontFamily family = Text_note_rtb.SelectionFont.FontFamily;
                 float size = Text_note_rtb.SelectionFont.Size;
-                Text_note_rtb.SelectionFont = new Font(family, size, FontStyle.Regular);
+
+                FontStyle style = FontStyle.Regular;
+
+                if (Text_note_rtb.SelectionFont.Strikeout)
+                    style |= FontStyle.Strikeout;
+                if (Text_note_rtb.SelectionFont.Underline)
+                    style |= FontStyle.Underline;
+                if (Text_note_rtb.SelectionFont.Italic)
+                    style |= FontStyle.Italic;
+
+                Text_note_rtb.SelectionFont = new Font(family, size, style);
             }
         }
-
         private void Color_btn_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)

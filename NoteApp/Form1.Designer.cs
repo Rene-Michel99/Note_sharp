@@ -43,8 +43,11 @@
             this.Sub_btn = new MetroFramework.Controls.MetroButton();
             this.Bold_btn = new MetroFramework.Controls.MetroButton();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.Color_btn = new MetroFramework.Controls.MetroButton();
+            this.Strikeout_btn = new MetroFramework.Controls.MetroButton();
             this.Font_size_box = new System.Windows.Forms.NumericUpDown();
+            this.Color_btn = new MetroFramework.Controls.MetroButton();
+            this.Italic_btn = new MetroFramework.Controls.MetroButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.Control_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -52,6 +55,7 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Font_size_box)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Control_panel
@@ -92,8 +96,9 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.splitContainer1.Location = new System.Drawing.Point(217, 29);
             this.splitContainer1.Name = "splitContainer1";
@@ -108,14 +113,12 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Controls.Add(this.Erase_btn);
-            this.splitContainer1.Panel2.Controls.Add(this.Save_btn);
-            this.splitContainer1.Panel2.Controls.Add(this.Title_note_box);
             this.splitContainer1.Panel2.Controls.Add(this.Text_note_rtb);
             this.splitContainer1.Panel2.Enabled = false;
-            this.splitContainer1.Size = new System.Drawing.Size(644, 478);
-            this.splitContainer1.SplitterDistance = 214;
+            this.splitContainer1.Size = new System.Drawing.Size(693, 478);
+            this.splitContainer1.SplitterDistance = 230;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -138,7 +141,7 @@
             this.Notes_list_panel.AutoScroll = true;
             this.Notes_list_panel.Location = new System.Drawing.Point(4, 98);
             this.Notes_list_panel.Name = "Notes_list_panel";
-            this.Notes_list_panel.Size = new System.Drawing.Size(207, 377);
+            this.Notes_list_panel.Size = new System.Drawing.Size(223, 377);
             this.Notes_list_panel.TabIndex = 3;
             // 
             // metroLabel1
@@ -157,20 +160,24 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.Font_size_box);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.Italic_btn);
             this.panel1.Controls.Add(this.Color_btn);
+            this.panel1.Controls.Add(this.Font_size_box);
+            this.panel1.Controls.Add(this.Strikeout_btn);
             this.panel1.Controls.Add(this.Bold_btn);
             this.panel1.Controls.Add(this.Sub_btn);
             this.panel1.Location = new System.Drawing.Point(3, 60);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(418, 32);
+            this.panel1.Size = new System.Drawing.Size(445, 32);
             this.panel1.TabIndex = 6;
             // 
             // Erase_btn
             // 
-            this.Erase_btn.Location = new System.Drawing.Point(348, 21);
+            this.Erase_btn.Location = new System.Drawing.Point(356, 5);
             this.Erase_btn.Name = "Erase_btn";
-            this.Erase_btn.Size = new System.Drawing.Size(75, 33);
+            this.Erase_btn.Size = new System.Drawing.Size(85, 33);
             this.Erase_btn.Style = MetroFramework.MetroColorStyle.Red;
             this.Erase_btn.TabIndex = 5;
             this.Erase_btn.Text = "Apagar";
@@ -179,9 +186,9 @@
             // 
             // Save_btn
             // 
-            this.Save_btn.Location = new System.Drawing.Point(267, 21);
+            this.Save_btn.Location = new System.Drawing.Point(267, 5);
             this.Save_btn.Name = "Save_btn";
-            this.Save_btn.Size = new System.Drawing.Size(75, 33);
+            this.Save_btn.Size = new System.Drawing.Size(83, 33);
             this.Save_btn.Style = MetroFramework.MetroColorStyle.Green;
             this.Save_btn.TabIndex = 4;
             this.Save_btn.Text = "Salvar";
@@ -193,7 +200,7 @@
             this.Title_note_box.CustomBackground = true;
             this.Title_note_box.CustomForeColor = true;
             this.Title_note_box.FontSize = MetroFramework.MetroTextBoxSize.Tall;
-            this.Title_note_box.Location = new System.Drawing.Point(3, 21);
+            this.Title_note_box.Location = new System.Drawing.Point(3, 5);
             this.Title_note_box.Name = "Title_note_box";
             this.Title_note_box.Size = new System.Drawing.Size(258, 33);
             this.Title_note_box.Style = MetroFramework.MetroColorStyle.Black;
@@ -202,14 +209,15 @@
             // 
             // Text_note_rtb
             // 
-            this.Text_note_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.Text_note_rtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Text_note_rtb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.Text_note_rtb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Text_note_rtb.ForeColor = System.Drawing.SystemColors.Info;
             this.Text_note_rtb.Location = new System.Drawing.Point(3, 98);
             this.Text_note_rtb.Name = "Text_note_rtb";
-            this.Text_note_rtb.Size = new System.Drawing.Size(420, 377);
+            this.Text_note_rtb.Size = new System.Drawing.Size(445, 377);
             this.Text_note_rtb.TabIndex = 0;
             this.Text_note_rtb.Text = "";
             // 
@@ -233,23 +241,23 @@
             this.Bold_btn.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Bold_btn.Click += new System.EventHandler(this.Bold_btn_Click);
             // 
-            // Color_btn
+            // Strikeout_btn
             // 
-            this.Color_btn.Location = new System.Drawing.Point(165, 6);
-            this.Color_btn.Name = "Color_btn";
-            this.Color_btn.Size = new System.Drawing.Size(75, 23);
-            this.Color_btn.TabIndex = 3;
-            this.Color_btn.Text = "Cor";
-            this.Color_btn.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Color_btn.Click += new System.EventHandler(this.Color_btn_Click);
+            this.Strikeout_btn.Location = new System.Drawing.Point(165, 6);
+            this.Strikeout_btn.Name = "Strikeout_btn";
+            this.Strikeout_btn.Size = new System.Drawing.Size(75, 23);
+            this.Strikeout_btn.TabIndex = 3;
+            this.Strikeout_btn.Text = "Tachado";
+            this.Strikeout_btn.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Strikeout_btn.Click += new System.EventHandler(this.Strikeout_btn_Click);
             // 
             // Font_size_box
             // 
             this.Font_size_box.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Font_size_box.ForeColor = System.Drawing.Color.White;
-            this.Font_size_box.Location = new System.Drawing.Point(247, 6);
+            this.Font_size_box.Location = new System.Drawing.Point(404, 6);
             this.Font_size_box.Name = "Font_size_box";
-            this.Font_size_box.Size = new System.Drawing.Size(33, 20);
+            this.Font_size_box.Size = new System.Drawing.Size(38, 20);
             this.Font_size_box.TabIndex = 4;
             this.Font_size_box.Value = new decimal(new int[] {
             12,
@@ -258,11 +266,43 @@
             0});
             this.Font_size_box.ValueChanged += new System.EventHandler(this.Font_size_box_ValueChanged);
             // 
+            // Color_btn
+            // 
+            this.Color_btn.Location = new System.Drawing.Point(246, 6);
+            this.Color_btn.Name = "Color_btn";
+            this.Color_btn.Size = new System.Drawing.Size(75, 23);
+            this.Color_btn.TabIndex = 5;
+            this.Color_btn.Text = "Cor";
+            this.Color_btn.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Color_btn.Click += new System.EventHandler(this.Color_btn_Click);
+            // 
+            // Italic_btn
+            // 
+            this.Italic_btn.Location = new System.Drawing.Point(327, 6);
+            this.Italic_btn.Name = "Italic_btn";
+            this.Italic_btn.Size = new System.Drawing.Size(75, 23);
+            this.Italic_btn.TabIndex = 6;
+            this.Italic_btn.Text = "Itálico";
+            this.Italic_btn.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Italic_btn.Click += new System.EventHandler(this.Italic_btn_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.Save_btn);
+            this.panel2.Controls.Add(this.Erase_btn);
+            this.panel2.Controls.Add(this.Title_note_box);
+            this.panel2.Location = new System.Drawing.Point(3, 13);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(445, 41);
+            this.panel2.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 530);
+            this.ClientSize = new System.Drawing.Size(933, 530);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.Control_panel);
             this.ForeColor = System.Drawing.Color.AliceBlue;
@@ -276,6 +316,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Font_size_box)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -296,9 +337,12 @@
         private System.Windows.Forms.Panel panel1;
         private MetroFramework.Controls.MetroButton Sub_btn;
         private MetroFramework.Controls.MetroButton Bold_btn;
-        private MetroFramework.Controls.MetroButton Color_btn;
+        private MetroFramework.Controls.MetroButton Strikeout_btn;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.NumericUpDown Font_size_box;
+        private MetroFramework.Controls.MetroButton Color_btn;
+        private MetroFramework.Controls.MetroButton Italic_btn;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
