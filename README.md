@@ -11,4 +11,7 @@ create table notes(<br>
 );
 
 <h2>Criando uma nota</h2>
-<img src='creating_note.gif' alt='Criando nota' width='250' height='150'>
+<img src='creating_note.gif' alt='Criando nota' width='500' height='350'>
+
+<h2>Acessando outras notas</h2>
+<img src='switching.gif' width='500' height='350'>
