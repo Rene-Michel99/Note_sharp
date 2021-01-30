@@ -198,7 +198,6 @@
             this.Title_note_box.Size = new System.Drawing.Size(258, 33);
             this.Title_note_box.Style = MetroFramework.MetroColorStyle.Black;
             this.Title_note_box.TabIndex = 3;
-            this.Title_note_box.Text = "Nota sem nome";
             this.Title_note_box.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
             // Text_note_rtb

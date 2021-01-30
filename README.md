@@ -9,3 +9,6 @@ create table notes(<br>
 	text_ text,<br>
 	date_ datetime<br>
 );
+
+<h2>Criando uma nota</h2>
+<img href='creating_note.gif' width='250' height='150'>
