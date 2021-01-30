@@ -15,3 +15,9 @@ create table notes(<br>
 
 <h2>Acessando outras notas</h2>
 <img src='switching.gif' width='500' height='350'>
+
+<h2>Editando os textos</h2>
+<img src='editing.gif' width='500' height='350'>
+
+<h2>Apagando uma nota</h2>
+<img src='erasing.gif' width='500' height='350'>
