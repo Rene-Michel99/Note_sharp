@@ -160,70 +160,75 @@ namespace NoteApp
         }
         private void Save_btn_Click(object sender, EventArgs e)
         {
-            int id = exist_in(Title_note_box.Text);
-
-            if(id == -1)
+            if (Title_note_box.Text != "" && Text_note_rtb.Text != "")
             {
-                Note note = new Note();
+                int id = exist_in(Title_note_box.Text);
 
-                note.title = Title_note_box.Text;
-                note.text = Text_note_rtb.Rtf;
-
-                if (notes_saved.Count > 0)
+                if (id == -1)
                 {
-                    int maior = 0;
-                    foreach (Note nt in notes_saved)
+                    Note note = new Note();
+
+                    note.title = Title_note_box.Text;
+                    note.text = Text_note_rtb.Rtf;
+
+                    if (notes_saved.Count > 0)
                     {
-                        if (nt.id > maior)
-                            maior = nt.id;
+                        int maior = 0;
+                        foreach (Note nt in notes_saved)
+                        {
+                            if (nt.id > maior)
+                                maior = nt.id;
+                        }
+                        note.id = maior + 1;
                     }
-                    note.id = maior + 1;
+                    else
+                        note.id = 1;
+
+                    MySqlCommand cmd = this.connection.CreateCommand();
+
+                    cmd.CommandText = "INSERT INTO notes(id,title,text_,date_) values(@id,@title,@text_,@date_)";
+                    cmd.Parameters.AddWithValue("@id", note.id);
+                    cmd.Parameters.AddWithValue("@title", note.title);
+                    cmd.Parameters.AddWithValue("@text_", note.text);
+                    cmd.Parameters.AddWithValue("@date_", note.get_date());
+
+                    int status = cmd.ExecuteNonQuery();
+
+                    if (status > 0)
+                    {
+                        this.update_notes_saved(note);
+                        MessageBox.Show("Nota salva com sucesso!");
+                    }
+                    else
+                        MessageBox.Show("Não foi possível salvar a nota.");
                 }
                 else
-                    note.id = 1;
-
-                MySqlCommand cmd = this.connection.CreateCommand();
-
-                cmd.CommandText = "INSERT INTO notes(id,title,text_,date_) values(@id,@title,@text_,@date_)";
-                cmd.Parameters.AddWithValue("@id", note.id);
-                cmd.Parameters.AddWithValue("@title", note.title);
-                cmd.Parameters.AddWithValue("@text_", note.text);
-                cmd.Parameters.AddWithValue("@date_", note.get_date());
-
-                int status = cmd.ExecuteNonQuery();
-
-                if (status > 0)
                 {
-                    this.update_notes_saved(note);
-                    MessageBox.Show("Nota salva com sucesso!");
+                    Note note = get_note(Title_note_box.Text);
+                    note.text = Text_note_rtb.Rtf;
+                    note.set_new_date();
+
+                    Console.WriteLine(note.get_date());
+
+                    MySqlCommand cmd = this.connection.CreateCommand();
+
+                    cmd.CommandText = "UPDATE notes SET text_=@text,date_=@date where id=@id";
+                    cmd.Parameters.AddWithValue("@text", note.text);
+                    cmd.Parameters.AddWithValue("@date", note.get_date());
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    int status = cmd.ExecuteNonQuery();
+                    if (status > 0)
+                    {
+                        this.update_notes_saved(note);
+                        MessageBox.Show("Nota salva com sucesso!");
+                    }
+                    else
+                        MessageBox.Show("Não foi possível salvar a nota.");
                 }
-                else
-                    MessageBox.Show("Não foi possível salvar a nota.");
             }
             else
-            {
-                Note note = get_note(Title_note_box.Text);
-                note.text = Text_note_rtb.Rtf;
-                note.set_new_date();
-
-                Console.WriteLine(note.get_date());
-
-                MySqlCommand cmd = this.connection.CreateCommand();
-
-                cmd.CommandText = "UPDATE notes SET text_=@text,date_=@date where id=@id";
-                cmd.Parameters.AddWithValue("@text", note.text);
-                cmd.Parameters.AddWithValue("@date", note.get_date());
-                cmd.Parameters.AddWithValue("@id", id);
-
-                int status = cmd.ExecuteNonQuery();
-                if (status > 0)
-                {
-                    this.update_notes_saved(note);
-                    MessageBox.Show("Nota salva com sucesso!");
-                }
-                else
-                    MessageBox.Show("Não foi possível salvar a nota.");
-            }
+                MessageBox.Show("Impossível salvar uma nota vazia!");
         }
         private Note get_note(string text)
         {
@@ -251,9 +256,26 @@ namespace NoteApp
             if (splitContainer1.Panel2.Enabled == false)
                 splitContainer1.Panel2.Enabled = true;
 
-            string[] list = sender.ToString().Split(':');
-            string text = list[1].Trim();
-            this.load_note(text);
+            Italic_btn.Highlight = false;
+            Sub_btn.Highlight = false;
+            Bold_btn.Highlight = false;
+            Strikeout_btn.Highlight = false;
+
+            int id = exist_in(Title_note_box.Text);
+
+            bool pass = true;
+            if(id == -1 && Title_note_box.Text != "")
+            {
+                if (MessageBox.Show("Está nota não foi salva, deseja continuar?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    pass = true;
+            }
+
+            if(pass)
+            {
+                string[] list = sender.ToString().Split(':');
+                string text = list[1].Trim();
+                this.load_note(text);
+            }
         }
         private void Italic_btn_Click(object sender, EventArgs e)
         {
