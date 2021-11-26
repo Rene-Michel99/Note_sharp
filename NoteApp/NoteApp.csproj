@@ -219,6 +219,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentNote.cs" />
     <Compile Include="DataController.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

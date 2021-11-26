@@ -19,8 +19,7 @@ namespace NoteApp
         Panel List_cr_pn = new Panel();
         Panel List_lists = new Panel();
 
-        private int current_note_id = -1;
-        private object temp_obj = null;
+        private CurrentNote current_note;
 
         public Form1()
         {
@@ -166,7 +165,7 @@ namespace NoteApp
             this.notes_saved = new List<Note>();
 
             this.create_panel_list();
-
+            this.current_note = new CurrentNote();
             if (this.init_conn_db() != 0)
                 System.Windows.Forms.Application.Exit();
 
@@ -209,54 +208,66 @@ namespace NoteApp
             }
             Notes_list_panel.Refresh();
         }
-        private void update_notes_saved(Note note)
+        private void insert_new_note_in_panel(string title)
         {
-            if(!this.exist_in_by_id(note.id))
+            MetroFramework.Controls.MetroButton btn = new MetroFramework.Controls.MetroButton();
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            btn.Text = title;
+            btn.AutoSize = true;
+            btn.Anchor = AnchorStyles.Right & AnchorStyles.Left;
+            btn.Click += this.Select_note;
+            btn.Theme = MetroFramework.MetroThemeStyle.Dark;
+
+            int y = 0;
+            if (Notes_list_panel.Controls.Count > 0)
+                y = Notes_list_panel.Controls[Notes_list_panel.Controls.Count - 1].Bounds.Y + 50;
+
+            Notes_list_panel.Controls.Add(btn);
+            btn.SetBounds(0, y, 210, 45);
+
+            Notes_list_panel.Refresh();
+        }
+        private void update_notes_saved(Note note=null)
+        {
+            if(note != null)
             {
                 this.notes_saved.Add(note);
 
-                MetroFramework.Controls.MetroButton btn = new MetroFramework.Controls.MetroButton();
-                btn.TextAlign = ContentAlignment.MiddleCenter;
-                btn.Text = note.title;
-                btn.AutoSize = true;
-                btn.Anchor = AnchorStyles.Right & AnchorStyles.Left;
-                btn.Click += this.Select_note;
-                btn.Theme = MetroFramework.MetroThemeStyle.Dark;
+                this.insert_new_note_in_panel(note.title);
 
-                int y = 0;
-                if (Notes_list_panel.Controls.Count > 0)
-                    y = Notes_list_panel.Controls[Notes_list_panel.Controls.Count - 1].Bounds.Y + 50;
+                int status = this.db_controller.insert_in_notes(note);
 
-                Notes_list_panel.Controls.Add(btn);
-                btn.SetBounds(0, y, 210, 45);
-
-                Notes_list_panel.Refresh();
+                if (status == 0)
+                {
+                    MessageBox.Show("Nota salva com sucesso!");
+                }
+                else
+                    MessageBox.Show("Não foi possível salvar a nota, tente novamente mais tarde!");
             }
             else
             {
-                for(int i=0; i<this.notes_saved.Count; i++)
-                {
-                    if(note.id == notes_saved[i].id)
-                    {
-                        this.change_title_note_box(notes_saved[i].title, note.title);
-                        notes_saved[i].title = note.title;
-                        notes_saved[i].text = note.text;
-                        notes_saved[i].set_new_date();
+                // UPDATE
+                note = this.get_note_by_id(this.current_note.note_id);
+                note.title = Title_note_box.Text;
+                note.text = Text_note_rtb.Rtf;
+                note.set_new_date();
 
-                    }
-                }
-            }
-        }
-        private void change_title_note_box(string old_title,string new_title)
-        {
-            for(int i=0; i<Notes_list_panel.Controls.Count; i++)
-            {
-                if (Notes_list_panel.Controls[i].Text == old_title)
+                this.change_title_note_box(note.title);
+
+                int status = this.db_controller.update_note(note);
+
+                if (status == 0)
                 {
-                    Notes_list_panel.Controls[i].Text = new_title;
-                    Console.WriteLine(Notes_list_panel.Controls[i].Text);
+                    MessageBox.Show("Nota salva com sucesso!");
                 }
+                else
+                    MessageBox.Show("Não foi possível salvar a nota, tente novamente mais tarde!");
             }
+            
+        }
+        private void change_title_note_box(string new_title)
+        {
+            Notes_list_panel.Controls[this.current_note.note_btn_id].Text = new_title;
         }
         private int exist_in(string title)
         {
@@ -282,7 +293,7 @@ namespace NoteApp
         {
             if (Title_note_box.Text != "" && Text_note_rtb.Text != "")
             {
-                if (this.current_note_id == -1)
+                if (this.current_note.note_id == -1)
                 {
                     Note note = new Note();
 
@@ -302,33 +313,11 @@ namespace NoteApp
                     else
                         note.id = 1;
 
-                    int status = this.db_controller.insert_in_notes(note);
-
-                    if (status == 0)
-                    {
-                        this.update_notes_saved(note);
-                        MessageBox.Show("Nota salva com sucesso!");
-                    }
-                    else
-                        MessageBox.Show("Não foi possível salvar a nota.");
+                    this.update_notes_saved(note);
                 }
                 else
                 {
-                    // UPDATE
-                    Note note = this.get_note_by_id(this.current_note_id).copy();
-                    note.title = Title_note_box.Text;
-                    note.text = Text_note_rtb.Rtf;
-                    note.set_new_date();
-
-                    int status = this.db_controller.update_note(note);
-
-                    if (status == 0)
-                    {
-                        this.update_notes_saved(note);
-                        MessageBox.Show("Nota salva com sucesso!");
-                    }
-                    else
-                        MessageBox.Show("Não foi possível salvar a nota.");
+                    this.update_notes_saved();
                 }
             }
             else
@@ -352,14 +341,15 @@ namespace NoteApp
             }
             return null;
         }
-        private void load_note(string text)
+        private void load_note(string text,int index)
         {
             Note note = get_note(text);
 
             Title_note_box.Text = note.title;
             Text_note_rtb.Rtf = note.text;
 
-            this.current_note_id = note.id;
+            this.current_note.note_id = note.id;
+            this.current_note.note_btn_id = index;
         }
         private void load_list(Lista list)
         {
@@ -440,11 +430,11 @@ namespace NoteApp
 
             if(pass)
             {
+                int idx = Notes_list_panel.Controls.GetChildIndex((MetroFramework.Controls.MetroButton)sender);
+
                 string[] list = sender.ToString().Split(':');
                 string text = list[1].Trim();
-                this.load_note(text);
-
-                this.temp_obj = (MetroFramework.Controls.MetroButton)sender;
+                this.load_note(text,idx);
             }
         }
         private void create_new_task(int x, int y,Panel pn)
