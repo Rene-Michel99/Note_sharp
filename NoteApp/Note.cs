@@ -34,6 +34,15 @@ namespace NoteApp
             //"YYYY-MM-DD hh:mm:ss" mysql
             //2021-01-30 15:06:23
         }
+        public Note copy()
+        {
+            Note copy_ = new Note(this.get_date());
+            copy_.id = this.id;
+            copy_.title = this.title;
+            copy_.text = this.text;
+
+            return copy_;
+        }
         public void set_new_date()
         {
             this.date = string.Empty;
