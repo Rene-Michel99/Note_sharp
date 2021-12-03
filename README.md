@@ -23,3 +23,8 @@ create table notes(<br>
 
 <h2>Apagando uma nota</h2>
 <img src='erasing.gif' width='500' height='350'>
+
+# Issues
+[i1]: https://github.com/Rene-Michel99/Note_sharp/issues/2
+
+* [bug] Adaptação da tabela listaq ([#2][i1])
