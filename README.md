@@ -27,4 +27,4 @@ create table notes(<br>
 # Issues
 [i1]: https://github.com/Rene-Michel99/Note_sharp/issues/2
 
-* [bug] Adaptação da tabela listaq ([#2][i1])
+* [bug] Adaptação da tabela lista ([#2][i1])
